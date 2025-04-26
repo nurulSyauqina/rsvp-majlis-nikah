@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RSVP | Majlis</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ffffff;
+    }
+    h1 {
+      font-family: 'Great Vibes', cursive;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-white text-gray-800 px-4 py-10 flex flex-col items-center">
+
+  <!-- TITLE -->
+  <h1 class="text-4xl text-center text-[#b27a7a] mb-6">Jemputan Majlis</h1>
+
+  <!-- FORM -->
+  <form id="rsvpForm" class="w-full max-w-md bg-[#fef9f8] shadow-md rounded-xl p-6 space-y-4">
+    <div>
+      <label class="block text-sm font-semibold">Nama</label>
+      <input type="text" id="nama" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#b27a7a]" required />
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold">Kehadiran</label>
+      <select id="kehadiran" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md">
+        <option value="Hadir">Hadir</option>
+        <option value="Tidak Hadir">Tidak Hadir</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold">Bilangan Kehadiran</label>
+      <input type="number" id="bilangan" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md" min="1" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-semibold">Ucapan</label>
+      <textarea id="ucapan" rows="3" class="mt-1 w-full px-3 py-2 border border-gray-300 rounded-md"></textarea>
+    </div>
+
+    <button type="submit" class="w-full bg-[#b27a7a] text-white py-2 rounded-md hover:bg-[#a86c6c] transition">Hantar RSVP</button>
+  </form>
+
+  <!-- UCAPAN LIVE DISPLAY -->
+  <div class="w-full max-w-md mt-10">
+    <h2 class="text-xl font-semibold text-[#b27a7a] mb-4">Ucapan yang Diterima:</h2>
+    <ul id="ucapanList" class="space-y-2 text-sm">
+      <!-- Akan muncul di sini -->
+    </ul>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    const form = document.getElementById('rsvpForm');
+    const ucapanList = document.getElementById('ucapanList');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const nama = document.getElementById('nama').value;
+      const kehadiran = document.getElementById('kehadiran').value;
+      const bilangan = document.getElementById('bilangan').value;
+      const ucapan = document.getElementById('ucapan').value;
+
+      const li = document.createElement('li');
+      li.className = "bg-[#fceeee] px-4 py-3 rounded-md shadow-sm";
+      li.innerHTML = <strong>${nama}</strong> (${kehadiran}, ${bilangan} orang):<br/>"${ucapan}";
+
+      ucapanList.prepend(li);
+      form.reset();
+    });
+  </script>
+</body>
+</html>
